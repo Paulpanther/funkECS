@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Editor from "react-simple-code-editor";
 import Parser, { Language, Query, Tree } from "web-tree-sitter";
+import { interpret } from "../interpreter/Interpreter";
 
 export const App: React.VFC = () => {
   const [parser, setParser] = useState<Parser | null>(null);
   const [language, setLanguage] = useState<Language | null>(null);
   const [highlightQuery, setHighlightQuery] = useState<Query | null>(null);
+  const [result, setResult] = useState<string>("");
 
   useEffect(() => {
     (async () => {
@@ -17,7 +19,7 @@ export const App: React.VFC = () => {
       setLanguage(language);
       setHighlightQuery(
         language.query(`
-            "hello" @variable
+            (number) @literal
         `)
       );
     })();
@@ -40,7 +42,7 @@ export const App: React.VFC = () => {
       if (start > lastEnd) {
         adjusted.push(code.substring(lastEnd, start));
       }
-      adjusted.push(<span class={name}>{text}</span>);
+      adjusted.push(<span className={name}>{text}</span>);
       lastEnd = end;
     }
 
@@ -54,16 +56,28 @@ export const App: React.VFC = () => {
   return (
     <div>
       {parser ? (
-        <Editor
-          value={code}
-          onValueChange={(code) => setCode(code)}
-          highlight={(code) => highlight(parser.parse(code))}
-          padding={10}
-          style={{
-            fontFamily: '"Fira code", "Fira Mono", monospace',
-            fontSize: 12,
-          }}
-        />
+        <>
+          <Editor
+            value={code}
+            onValueChange={(code) => setCode(code)}
+            highlight={(code) => highlight(parser.parse(code))}
+            padding={10}
+            style={{
+              fontFamily: '"Fira code", "Fira Mono", monospace',
+              fontSize: 12,
+            }}
+          />
+          <br />
+          <button
+            onClick={() =>
+              setResult(JSON.stringify(interpret(parser.parse(code).rootNode)))
+            }
+          >
+            Run
+          </button>
+          <br />
+          {result}
+        </>
       ) : (
         "Loading..."
       )}
