@@ -9,19 +9,23 @@ module.exports = grammar({
 
     component_body: $ => seq("(", ")"),
 
-    system_declaration: $ => seq("system", field("name", $.name), $.system_body),
+    system_declaration: $ => seq("system", field("name", $.name), field("precondition", optional($.system_precondition)), $.system_body),
+
+    system_precondition: $ => seq("(", $.pipeline, ")"),
 
     system_body: $ => seq("(", repeat(seq($.pipeline, ";")), ")"),
 
-    pipeline: $ => "query",
+    pipeline: $ => $.expression,
 
     name: $ => /[A-Z]\w+/,
 
     expression: $ => choice($.binary_expression, $.primary),
 
-    primary: $ => $.number,
+    primary: $ => choice($.number, $.boolean),
 
     number: $ => /\d+(\.\d*)?/,
+
+    boolean: $ => choice("true", "false"),
 
     binary_expression: $ => prec.left(seq(field("left", $.expression), field("operator", $.operator), field("right", $.expression))),
 

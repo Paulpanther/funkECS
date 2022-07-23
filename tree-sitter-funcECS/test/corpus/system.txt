@@ -10,3 +10,19 @@ system MySystem()
   (system_declaration
     (name)
     (system_body)))
+
+==========
+System with Precondition
+==========
+
+system MySystem(true)()
+
+---
+
+(source_file
+  (system_declaration
+    (name)
+    (system_precondition
+      (pipeline
+        (boolean)))
+    (system_body)))

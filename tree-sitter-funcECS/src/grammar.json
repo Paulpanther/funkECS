@@ -79,8 +79,41 @@
           }
         },
         {
+          "type": "FIELD",
+          "name": "precondition",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "system_precondition"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
           "type": "SYMBOL",
           "name": "system_body"
+        }
+      ]
+    },
+    "system_precondition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pipeline"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
         }
       ]
     },
@@ -114,8 +147,8 @@
       ]
     },
     "pipeline": {
-      "type": "STRING",
-      "value": "query"
+      "type": "SYMBOL",
+      "name": "expression"
     },
     "name": {
       "type": "PATTERN",
@@ -135,12 +168,34 @@
       ]
     },
     "primary": {
-      "type": "SYMBOL",
-      "name": "number"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "boolean"
+        }
+      ]
     },
     "number": {
       "type": "PATTERN",
       "value": "\\d+(\\.\\d*)?"
+    },
+    "boolean": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "true"
+        },
+        {
+          "type": "STRING",
+          "value": "false"
+        }
+      ]
     },
     "binary_expression": {
       "type": "PREC_LEFT",

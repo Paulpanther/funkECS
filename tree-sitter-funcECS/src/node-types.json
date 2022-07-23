@@ -18,6 +18,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "boolean",
+        "named": true
+      },
+      {
         "type": "number",
         "named": true
       }
@@ -60,6 +64,11 @@
     }
   },
   {
+    "type": "boolean",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "component_body",
     "named": true,
     "fields": {}
@@ -94,6 +103,21 @@
     "type": "operator",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "pipeline",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "source_file",
@@ -146,6 +170,16 @@
             "named": true
           }
         ]
+      },
+      "precondition": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "system_precondition",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -154,6 +188,21 @@
       "types": [
         {
           "type": "system_body",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "system_precondition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "pipeline",
           "named": true
         }
       ]
@@ -220,6 +269,10 @@
     "named": false
   },
   {
+    "type": "false",
+    "named": false
+  },
+  {
     "type": "name",
     "named": true
   },
@@ -228,11 +281,11 @@
     "named": true
   },
   {
-    "type": "pipeline",
-    "named": true
+    "type": "system",
+    "named": false
   },
   {
-    "type": "system",
+    "type": "true",
     "named": false
   },
   {
