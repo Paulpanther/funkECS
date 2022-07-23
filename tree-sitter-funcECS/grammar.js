@@ -29,9 +29,17 @@ module.exports = grammar({
     system_body: ($) => seq("(", repeat(seq($.pipeline, ";")), ")"),
 
     pipeline: ($) =>
-      seq($.expression, repeat(choice($.pipe, $.assignment, $.reduce))),
+      seq($.expression, repeat(choice($._pipe, $.assignment, $.reduce))),
 
-    pipe: ($) => seq("|", $.expression),
+    _pipe: ($) => seq("|", $.pipeline_operation),
+
+    pipeline_operation: ($) =>
+      seq(
+        field("operator", alias($.variable, $.pipeline_operator)),
+        $.expression
+      ),
+
+    map: ($) => seq("map", $.expression),
 
     assignment: ($) => seq("=", field("name", $.variable)),
 
@@ -51,7 +59,9 @@ module.exports = grammar({
 
     expression: ($) => choice($.binary_expression, $.primary),
 
-    primary: ($) => choice($.number, $.boolean, $.variable),
+    primary: ($) => choice($.number, $.boolean, $.variable, $.last_value),
+
+    last_value: ($) => "$",
 
     number: ($) => /\d+(\.\d*)?/,
 

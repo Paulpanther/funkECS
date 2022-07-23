@@ -19,12 +19,12 @@ system MySystem(
           (number))))))
 
 ==========
-Pipeline with a pipe
+Pipeline with a map pipeline operation
 ==========
 
 system MySystem(
   true
-  | true;
+  | map false;
 )
 
 ---
@@ -35,7 +35,8 @@ system MySystem(
     (system_body
       (pipeline
         (boolean)
-        (pipe
+        (pipeline_operation
+          (pipeline_operator)
           (boolean))))))
 
 ==========
