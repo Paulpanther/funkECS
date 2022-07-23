@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Editor from "react-simple-code-editor";
 import Parser, { Language, Query, Tree } from "web-tree-sitter";
-import { interpret } from "../interpreter/Interpreter";
+import { interpret, Interpreter } from "../interpreter/Interpreter";
 
 export const App: React.VFC = () => {
   const [parser, setParser] = useState<Parser | null>(null);
   const [language, setLanguage] = useState<Language | null>(null);
   const [highlightQuery, setHighlightQuery] = useState<Query | null>(null);
-  const [result, setResult] = useState<string>("");
+  const [output, setOutput] = useState<string>("");
 
   useEffect(() => {
     (async () => {
@@ -19,13 +19,24 @@ export const App: React.VFC = () => {
       setLanguage(language);
       setHighlightQuery(
         language.query(`
-            (number) @literal
+            [(number) (boolean)] @literal
+            (name) @variable
+            ["component" "system"] @declaration
+            (ERROR) @error
         `)
       );
     })();
   }, []);
 
-  const [code, setCode] = React.useState("");
+  const [code, setCode] = React.useState(`component Pos(
+  x: int
+  y: int
+)
+
+system Move(
+  true;
+  123;
+)`);
 
   const highlight = (tree: Tree) => {
     let adjusted = [];
@@ -42,7 +53,11 @@ export const App: React.VFC = () => {
       if (start > lastEnd) {
         adjusted.push(code.substring(lastEnd, start));
       }
-      adjusted.push(<span className={name}>{text}</span>);
+      adjusted.push(
+        <span key={start} className={name}>
+          {text}
+        </span>
+      );
       lastEnd = end;
     }
 
@@ -69,14 +84,19 @@ export const App: React.VFC = () => {
           />
           <br />
           <button
-            onClick={() =>
-              setResult(JSON.stringify(interpret(parser.parse(code).rootNode)))
-            }
+            onClick={() => {
+              setOutput("");
+
+              const interp = new Interpreter((str) =>
+                setOutput((s) => s + str)
+              );
+              interp.evaluateFileAndRun(parser.parse(code).rootNode);
+            }}
           >
             Run
           </button>
           <br />
-          {result}
+          <pre>{output}</pre>
         </>
       ) : (
         "Loading..."
