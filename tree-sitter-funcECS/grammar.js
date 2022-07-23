@@ -21,15 +21,15 @@ module.exports = grammar({
 
     pipe: $ => seq("|", $.expression),
 
-    assignment: $ => seq("=", fields("name", $.variable)),
+    assignment: $ => seq("=", field("name", $.variable)),
 
-    reduce: $ => seq("$"),
+    reduce: $ => seq("$", field("accumulator", $.variable), "=", field("reducer", $.expression), ",", field("initial", $.expression)),
 
     variable: $ => /[a-z]\w*/,
 
     name: $ => /[A-Z]\w*/,
 
-    expression: $ => choice($.binary_expression, $.primary),
+    expression: $ => choice($.binary_expression, $.primary, $.variable),
 
     primary: $ => choice($.number, $.boolean),
 
