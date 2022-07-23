@@ -3,7 +3,7 @@ import {System} from "./Models";
 import {Interpreter} from "./Interpreter";
 
 export class Systems {
-    private systems: System[];
+    private systems: System[] = [];
 
     constructor(
         private world = new World(),
