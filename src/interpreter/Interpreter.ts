@@ -42,7 +42,7 @@ export class Interpreter {
   public evaluatePipelines(code: SyntaxNode, scope: Scope): any {
     for (const child of code.namedChildren) {
       const result = this.evaluateExpression(child, scope);
-      this.stdout(result + "\n");
+      scope.last = result;
     }
   }
 
@@ -96,11 +96,17 @@ export class Interpreter {
   }
 
   public evaluateOperation(code: SyntaxNode, scope: Scope) {
+    let value;
     switch (code.firstNamedChild.text) {
+      case "map":
+        if (code.namedChildCount !== 2)
+          throw new Error("map takes exactly 1 argument");
+        value = this.evaluateExpression(code.namedChildren[1], scope);
+        return value;
       case "print":
         if (code.namedChildCount !== 2)
           throw new Error("print takes exactly 1 argument");
-        const value = this.evaluateExpression(code.namedChildren[1], scope);
+        value = this.evaluateExpression(code.namedChildren[1], scope);
         this.stdout(value);
         return value;
       default:
