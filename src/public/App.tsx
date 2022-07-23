@@ -17,7 +17,7 @@ export const App: React.VFC = () => {
       setLanguage(language);
       setHighlightQuery(
         language.query(`
-            "hello" @variable
+            (number) @literal
         `)
       );
     })();
