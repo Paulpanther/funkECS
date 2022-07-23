@@ -25,6 +25,6 @@ export class Systems {
     }
 
     private executeSystem(system: System) {
-
+        this.interpreter.evaluatePipelines(system.body);
     }
 }

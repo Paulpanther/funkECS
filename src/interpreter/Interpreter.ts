@@ -4,18 +4,31 @@ import {World} from "./World";
 import {System} from "./Models";
 import {childWithType} from "./util";
 
-export const interpret = (code: SyntaxNode) => {
-    return new Interpreter().evaluate(code)
-};
-
 export class Interpreter {
     private world = new World();
     private systems = new Systems(this.world, this);
 
+    constructor(
+        private stdout: (out: string) => void
+    ) {}
+
+    public evaluateFileAndRun(code: SyntaxNode) {
+        for (const child of code.children) {
+            this.evaluate(child);
+        }
+        // const result = this.evaluateExpression(code.children[0]);
+        // console.log(result);
+        // return result
+        this.systems.executeAll();
+    }
+
     public evaluate(code: SyntaxNode) {
-        const result = this.evaluateExpression(code.children[0]);
-        console.log(result);
-        return result
+        switch (code.type) {
+            case "system_declaration": return this.storeSystem(code);
+            case "component_declaration": return this.storeComponent(code);
+        }
+
+        throw new Error(`Invalid expression in root with type ${code.type}`)
     }
 
     public storeSystem(code: SyntaxNode) {
@@ -27,6 +40,10 @@ export class Interpreter {
     }
 
     public storeComponent(code: SyntaxNode) {
+
+    }
+
+    public evaluatePipelines(code: SyntaxNode): any {
 
     }
 
