@@ -41,7 +41,7 @@ export class Interpreter {
 
   public evaluatePipelines(code: SyntaxNode, scope: Scope): any {
     for (const child of code.namedChildren) {
-      const result = this.evaluateExpression(child.firstNamedChild, scope);
+      const result = this.evaluateExpression(child, scope);
       this.stdout(result + "\n");
     }
   }
@@ -56,6 +56,8 @@ export class Interpreter {
         return this.evaluateBoolean(code);
       case "variable":
         return this.evaluateVariable(code, scope);
+      case "last_value":
+        return scope.last;
       case "binary_expression":
         return this.evaluateBinary(code, scope);
     }
@@ -71,23 +73,40 @@ export class Interpreter {
         case "assignment":
           const name = pipe.childForFieldName("name").text;
           scope.setValue(name, scope.last);
-          if (pipe === code.lastNamedChild) {
-            console.log(`Assigned ${name} to ${scope.last}`);
+          if (pipe.id === code.lastNamedChild.id) {
             scope.parent.setValue(name, scope.last);
           }
           break;
-        // case "reduce":
-        //   scope.last = this.evaluateReduce(pipe, scope);
-        //   break;
-        case "pipe":
-          scope.last = this.evaluateExpression(
-            pipe.childForFieldName("expr"),
-            scope
-          );
+        case "reduce":
+          scope.last = this.evaluateReduce(pipe, scope);
+          break;
+        case "pipeline_operation":
+          scope.last = this.evaluateOperation(pipe, scope);
           break;
         default:
-          throw new Error("No case for pipe ${pipe.type}");
+          throw new Error(`No case for pipe ${pipe.type}`);
       }
+    }
+    return scope.last;
+  }
+
+  public evaluateReduce(code: SyntaxNode, scope: Scope) {
+    // TODO
+    throw new Error("reduce not yet implemented");
+  }
+
+  public evaluateOperation(code: SyntaxNode, scope: Scope) {
+    switch (code.firstNamedChild.text) {
+      case "print":
+        if (code.namedChildCount !== 2)
+          throw new Error("print takes exactly 1 argument");
+        const value = this.evaluateExpression(code.namedChildren[1], scope);
+        this.stdout(value);
+        return value;
+      default:
+        throw new Error(
+          `Operation ${code.firstNamedChild.text} not implemented`
+        );
     }
   }
 

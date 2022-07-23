@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Editor from "react-simple-code-editor";
 import Parser, { Language, Query, Tree } from "web-tree-sitter";
-import { interpret, Interpreter } from "../interpreter/Interpreter";
+import { Interpreter } from "../interpreter/Interpreter";
 
 export const App: React.VFC = () => {
+  const [code, setCode] = React.useState(`component Pos(
+  x: int
+  y: int
+)
+
+system Move(
+  true = test;
+  test;
+)`);
+
   const [parser, setParser] = useState<Parser | null>(null);
   const [language, setLanguage] = useState<Language | null>(null);
   const [highlightQuery, setHighlightQuery] = useState<Query | null>(null);
@@ -27,16 +37,6 @@ export const App: React.VFC = () => {
       );
     })();
   }, []);
-
-  const [code, setCode] = React.useState(`component Pos(
-  x: int
-  y: int
-)
-
-system Move(
-  true;
-  123;
-)`);
 
   const highlight = (tree: Tree) => {
     let adjusted = [];
