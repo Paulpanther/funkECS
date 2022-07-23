@@ -3,6 +3,7 @@ import { Systems } from "./Systems";
 import { World } from "./World";
 import { System } from "./Models";
 import { childWithType } from "./util";
+import { Scope } from "./Scope";
 
 export class Interpreter {
   private world = new World();
@@ -12,15 +13,12 @@ export class Interpreter {
 
   public evaluateFileAndRun(code: SyntaxNode) {
     for (const child of code.namedChildren) {
-      this.evaluate(child);
+      this.evaluateDeclaration(child);
     }
-    // const result = this.evaluateExpression(code.namedChildren[0]);
-    // console.log(result);
-    // return result
     this.systems.executeAll();
   }
 
-  public evaluate(code: SyntaxNode) {
+  public evaluateDeclaration(code: SyntaxNode) {
     switch (code.type) {
       case "system_declaration":
         return this.storeSystem(code);
@@ -41,23 +39,53 @@ export class Interpreter {
 
   public storeComponent(code: SyntaxNode) {}
 
-  public evaluatePipelines(code: SyntaxNode): any {
+  public evaluatePipelines(code: SyntaxNode, scope: Scope): any {
     for (const child of code.namedChildren) {
-      const result = this.evaluateExpression(child.firstNamedChild);
+      const result = this.evaluateExpression(child.firstNamedChild, scope);
       this.stdout(result + "\n");
     }
   }
 
-  public evaluateExpression(code: SyntaxNode): any {
+  public evaluateExpression(code: SyntaxNode, scope: Scope): any {
     switch (code.type) {
+      case "pipeline":
+        return this.evaluatePipeline(code, scope);
       case "number":
         return this.evaluateNumber(code);
       case "boolean":
         return this.evaluateBoolean(code);
       case "binary_expression":
-        return this.evaluateBinary(code);
+        return this.evaluateBinary(code, scope);
     }
     throw new Error(`No case for expression type ${code.type}`);
+  }
+
+  public evaluatePipeline(code: SyntaxNode, parentScope: Scope) {
+    const scope = new Scope(parentScope);
+    scope.last = this.evaluateExpression(code.firstNamedChild, scope);
+
+    for (const pipe of code.namedChildren.slice(1)) {
+      switch (pipe.type) {
+        case "assignment":
+          const name = pipe.childForFieldName("name").text;
+          scope.setValue(name, scope.last);
+          if (pipe === code.lastNamedChild) {
+            scope.parent.setValue(name, scope.last);
+          }
+          break;
+        // case "reduce":
+        //   scope.last = this.evaluateReduce(pipe, scope);
+        //   break;
+        case "pipe":
+          scope.last = this.evaluateExpression(
+            pipe.childForFieldName("expr"),
+            scope
+          );
+          break;
+        default:
+          throw new Error("No case for pipe ${pipe.type}");
+      }
+    }
   }
 
   public evaluateNumber(code: SyntaxNode) {
@@ -68,13 +96,13 @@ export class Interpreter {
     return code.text === "true";
   }
 
-  public evaluateBinary(code: SyntaxNode) {
+  public evaluateBinary(code: SyntaxNode, scope: Scope) {
     const operator = code.childForFieldName("operator").text;
     const left = code.childForFieldName("left");
     const right = code.childForFieldName("right");
 
-    const leftValue = this.evaluateExpression(left);
-    const rightValue = this.evaluateExpression(right);
+    const leftValue = this.evaluateExpression(left, scope);
+    const rightValue = this.evaluateExpression(right, scope);
 
     switch (operator) {
       case "+":
