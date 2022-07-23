@@ -1,0 +1,25 @@
+==========
+Empty Component with Brackets
+==========
+
+component MyComponent()
+
+---
+
+(source_file
+  (component_declaration
+    (name)
+    (component_body)))
+
+==========
+Empty Component without Brackets
+==========
+
+component MyComponent
+
+---
+
+(source_file
+  (component_declaration
+    (name)))
+

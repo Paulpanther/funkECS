@@ -60,6 +60,37 @@
     }
   },
   {
+    "type": "component_body",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "component_declaration",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "component_body",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "operator",
     "named": true,
     "fields": {}
@@ -72,6 +103,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "component_declaration",
+          "named": true
+        },
         {
           "type": "expression",
           "named": true
@@ -157,6 +192,10 @@
     "named": false
   },
   {
+    "type": ";",
+    "named": false
+  },
+  {
     "type": "<",
     "named": false
   },
@@ -174,6 +213,10 @@
   },
   {
     "type": ">=",
+    "named": false
+  },
+  {
+    "type": "component",
     "named": false
   },
   {
