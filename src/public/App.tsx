@@ -26,9 +26,29 @@ export const App: React.VFC = () => {
   const [code, setCode] = React.useState("");
 
   const highlight = (tree: Tree) => {
-    for (const capture of highlightQuery.captures(tree.rootNode)) {
+    let adjusted = [];
+    let lastEnd = 0;
+    for (const match of highlightQuery.matches(tree.rootNode)) {
+      const name = match.captures[0].name;
+      const text = match.captures[0].node.text;
+      const start = match.captures[0].node.startIndex;
+      const end = match.captures[0].node.endIndex;
+
+      if (start < lastEnd) {
+        break;
+      }
+      if (start > lastEnd) {
+        adjusted.push(code.substring(lastEnd, start));
+      }
+      adjusted.push(<span class={name}>{text}</span>);
+      lastEnd = end;
     }
-    return "hi";
+
+    if (lastEnd < code.length) {
+      adjusted.push(code.substring(lastEnd));
+    }
+
+    return adjusted;
   };
 
   return (
