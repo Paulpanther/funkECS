@@ -1,17 +1,4 @@
-
-class ComponentType {}
-class Component {
-    public type: ComponentType
-}
-
-type Entity = number;
-
-class EntityWithComponents {
-    constructor(
-        public entity: Entity,
-        public components: Component[],
-    ) {}
-}
+import {Component, ComponentType, Entity, EntityWithComponents} from "./Models";
 
 export class World {
     private entities = new Map<Entity, Component[]>();

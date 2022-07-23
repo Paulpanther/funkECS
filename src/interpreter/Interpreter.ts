@@ -1,14 +1,33 @@
 import {SyntaxNode} from "web-tree-sitter";
+import {Systems} from "./Systems";
+import {World} from "./World";
+import {System} from "./Models";
+import {childWithType} from "./util";
 
 export const interpret = (code: SyntaxNode) => {
     return new Interpreter().evaluate(code)
 };
 
-class Interpreter {
+export class Interpreter {
+    private world = new World();
+    private systems = new Systems(this.world, this);
+
     public evaluate(code: SyntaxNode) {
         const result = this.evaluateExpression(code.children[0]);
         console.log(result);
         return result
+    }
+
+    public storeSystem(code: SyntaxNode) {
+        const name = code.childForFieldName("name").text;
+        const precondition = code.childForFieldName("precondition");
+        const body = childWithType(code, "system_body");
+
+        this.systems.addSystem(new System(name, body, precondition))
+    }
+
+    public storeComponent(code: SyntaxNode) {
+
     }
 
     public evaluateExpression(code: SyntaxNode): any {
