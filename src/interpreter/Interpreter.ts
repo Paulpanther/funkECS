@@ -1,13 +1,14 @@
 import {SyntaxNode} from "web-tree-sitter";
 
 export const interpret = (code: SyntaxNode) => {
-    new Interpreter().evaluate(code)
+    return new Interpreter().evaluate(code)
 };
 
 class Interpreter {
     public evaluate(code: SyntaxNode) {
         const result = this.evaluateExpression(code.children[0]);
         console.log(result);
+        return result
     }
 
     public evaluateExpression(code: SyntaxNode): any {
