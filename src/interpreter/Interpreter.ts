@@ -44,7 +44,10 @@ export class Interpreter {
     }
 
     public evaluatePipelines(code: SyntaxNode): any {
-
+        for (const child of code.children) {
+            const result = this.evaluateExpression(child);
+            this.stdout(result + "\n");
+        }
     }
 
     public evaluateExpression(code: SyntaxNode): any {
