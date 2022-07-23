@@ -1,0 +1,13 @@
+========
+Addition
+========
+
+1 + 2
+
+---
+
+(source_file
+  (binary_expression
+    (number)
+    (operator)
+    (number)))
