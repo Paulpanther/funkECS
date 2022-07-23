@@ -19,13 +19,23 @@ export const App: React.VFC = () => {
       setLanguage(language);
       setHighlightQuery(
         language.query(`
-            (number) @literal
+            [(number) (boolean)] @literal
+            (name) @variable
+            ["component" "system"] @declaration
         `)
       );
     })();
   }, []);
 
-  const [code, setCode] = React.useState("");
+  const [code, setCode] = React.useState(`component Pos(
+  x: int
+  y: int
+)
+
+system Move(
+  true;
+  123;
+)`);
 
   const highlight = (tree: Tree) => {
     let adjusted = [];
