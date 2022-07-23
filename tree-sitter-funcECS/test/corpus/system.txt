@@ -1,0 +1,10 @@
+==========
+Empty System
+==========
+
+system MySystem()
+
+---
+
+(source_file
+  (system_declaration))

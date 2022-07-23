@@ -1,0 +1,55 @@
+========
+Addition
+========
+
+1 + 2
+
+---
+
+(source_file
+  (binary_expression
+    (number)
+    (operator)
+    (number)))
+
+========
+Subtraction
+========
+
+1 - 2
+
+---
+
+(source_file
+  (binary_expression
+    (number)
+    (operator)
+    (number)))
+
+========
+Multiplication
+========
+
+1 * 2
+
+---
+
+(source_file
+  (binary_expression
+    (number)
+    (operator)
+    (number)))
+
+========
+Division
+========
+
+1 / 2
+
+---
+
+(source_file
+  (binary_expression
+    (number)
+    (operator)
+    (number)))
