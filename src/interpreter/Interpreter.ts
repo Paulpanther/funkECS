@@ -43,7 +43,7 @@ export class Interpreter {
 
   public evaluatePipelines(code: SyntaxNode): any {
     for (const child of code.namedChildren) {
-      const result = this.evaluateExpression(child);
+      const result = this.evaluateExpression(child.firstNamedChild);
       this.stdout(result + "\n");
     }
   }
@@ -52,6 +52,8 @@ export class Interpreter {
     switch (code.type) {
       case "number":
         return this.evaluateNumber(code);
+      case "boolean":
+        return this.evaluateBoolean(code);
       case "binary_expression":
         return this.evaluateBinary(code);
     }
@@ -60,6 +62,10 @@ export class Interpreter {
 
   public evaluateNumber(code: SyntaxNode) {
     return Number(code.text);
+  }
+
+  public evaluateBoolean(code: SyntaxNode) {
+    return code.text === "true";
   }
 
   public evaluateBinary(code: SyntaxNode) {

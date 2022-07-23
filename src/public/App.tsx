@@ -85,6 +85,8 @@ system Move(
           <br />
           <button
             onClick={() => {
+              setOutput("");
+
               const interp = new Interpreter((str) =>
                 setOutput((s) => s + str)
               );
