@@ -331,6 +331,10 @@
         {
           "type": "SYMBOL",
           "name": "primary"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pipeline_operation"
         }
       ]
     },
@@ -348,10 +352,6 @@
         {
           "type": "SYMBOL",
           "name": "variable"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "last_value"
         }
       ]
     },

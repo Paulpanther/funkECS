@@ -1,6 +1,7 @@
 module.exports = grammar({
   name: "funkECS",
   supertypes: ($) => [$.expression, $.primary],
+  // conflicts: $ => [[$.pipeline_operation, $.primary]],
 
   rules: {
     source_file: ($) =>
@@ -57,9 +58,9 @@ module.exports = grammar({
 
     name: ($) => /[A-Z]\w*/,
 
-    expression: ($) => choice($.binary_expression, $.primary),
+    expression: ($) => choice($.binary_expression, $.primary, $.pipeline_operation),
 
-    primary: ($) => choice($.number, $.boolean, $.variable, $.last_value),
+    primary: ($) => choice($.number, $.boolean, $.variable),
 
     last_value: ($) => "$",
 
