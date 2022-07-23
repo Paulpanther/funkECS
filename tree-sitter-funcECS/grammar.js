@@ -15,10 +15,8 @@ module.exports = grammar({
 
     number: $ => /\d+(\.\d*)?/,
 
-    binary_expression: $ => prec.left(seq($.expression, $.operator, $.expression)),
+    binary_expression: $ => prec.left(seq(field("left", $.expression), field("operator", $.operator), field("right", $.expression))),
 
-    operator: $ => "+"
+    operator: $ => choice("+", "-", "*", "/", "==", "!=", "<", ">")
   }
 });
-
-// + - * / == !=
