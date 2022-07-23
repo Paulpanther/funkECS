@@ -192,7 +192,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "pipe"
+                "name": "_pipe"
               },
               {
                 "type": "SYMBOL",
@@ -207,12 +207,47 @@
         }
       ]
     },
-    "pipe": {
+    "_pipe": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
           "value": "|"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pipeline_operation"
+        }
+      ]
+    },
+    "pipeline_operation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "operator",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "variable"
+            },
+            "named": true,
+            "value": "pipeline_operator"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        }
+      ]
+    },
+    "map": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "map"
         },
         {
           "type": "SYMBOL",
@@ -313,8 +348,16 @@
         {
           "type": "SYMBOL",
           "name": "variable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "last_value"
         }
       ]
+    },
+    "last_value": {
+      "type": "STRING",
+      "value": "$"
     },
     "number": {
       "type": "PATTERN",
