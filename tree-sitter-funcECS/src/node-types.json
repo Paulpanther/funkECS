@@ -28,6 +28,21 @@
     ]
   },
   {
+    "type": "assignment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "binary_expression",
     "named": true,
     "fields": {
@@ -141,7 +156,7 @@
     "fields": {}
   },
   {
-    "type": "pipeline",
+    "type": "pipe",
     "named": true,
     "fields": {},
     "children": {
@@ -154,6 +169,38 @@
         }
       ]
     }
+  },
+  {
+    "type": "pipeline",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "pipe",
+          "named": true
+        },
+        {
+          "type": "reduce",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "reduce",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "source_file",
@@ -254,6 +301,10 @@
     "named": false
   },
   {
+    "type": "$",
+    "named": false
+  },
+  {
     "type": "&&",
     "named": false
   },
@@ -295,6 +346,10 @@
   },
   {
     "type": "<=",
+    "named": false
+  },
+  {
+    "type": "=",
     "named": false
   },
   {
@@ -344,6 +399,10 @@
   {
     "type": "variable",
     "named": true
+  },
+  {
+    "type": "|",
+    "named": false
   },
   {
     "type": "||",

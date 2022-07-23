@@ -1,5 +1,5 @@
 ==========
-Pipeline with an addition
+Pipeline that is just an expression
 ==========
 
 system MySystem(
@@ -17,3 +17,43 @@ system MySystem(
           (number)
           (operator)
           (number))))))
+
+==========
+Pipeline with a pipe
+==========
+
+system MySystem(
+  true
+  | true;
+)
+
+---
+
+(source_file
+  (system_declaration
+    (name)
+    (system_body
+      (pipeline
+        (boolean)
+        (pipe
+          (boolean))))))
+
+==========
+Pipeline with an assignment
+==========
+
+system MySystem(
+  true
+  = myVar;
+)
+
+---
+
+(source_file
+  (system_declaration
+    (name)
+    (system_body
+      (pipeline
+        (boolean)
+        (assignment
+          (variable))))))
