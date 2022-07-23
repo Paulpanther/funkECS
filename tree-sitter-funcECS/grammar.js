@@ -49,7 +49,7 @@ module.exports = grammar({
 
     name: ($) => /[A-Z]\w*/,
 
-    expression: ($) => choice($.binary_expression, $.primary, $.variable),
+    expression: ($) => choice($.binary_expression, $.primary),
 
     primary: ($) => choice($.number, $.boolean, $.variable),
 

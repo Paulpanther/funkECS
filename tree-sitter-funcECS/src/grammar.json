@@ -296,10 +296,6 @@
         {
           "type": "SYMBOL",
           "name": "primary"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "variable"
         }
       ]
     },
