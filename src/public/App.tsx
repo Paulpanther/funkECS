@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Editor from "react-simple-code-editor";
 import Parser, { Language, Query, Tree } from "web-tree-sitter";
+import {interpret} from "../interpreter/Interpreter";
 
 export const App: React.VFC = () => {
   const [parser, setParser] = useState<Parser | null>(null);
@@ -20,6 +21,8 @@ export const App: React.VFC = () => {
             (number) @literal
         `)
       );
+
+      interpret(parser.parse("41 + 1 == 42").rootNode);
     })();
   }, []);
 
