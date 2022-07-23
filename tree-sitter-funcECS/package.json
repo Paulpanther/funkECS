@@ -4,7 +4,7 @@
   "description": "",
   "main": "bindings/node",
   "scripts": {
-    "build": "tree-sitter build-wasm"
+    "build": "tree-sitter generate && tree-sitter build-wasm"
   },
   "author": "",
   "license": "MIT",

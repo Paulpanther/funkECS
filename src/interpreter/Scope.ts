@@ -8,7 +8,9 @@ export class Scope {
     this.bindings.set(name, value);
   }
 
-  public getValue(name: string): any | undefined {
-    return this.bindings.get(name) ?? this.parent?.getValue(name);
+  public getValue(name: string, notFound: () => void): any {
+    if (this.bindings.has(name)) return this.bindings.get(name);
+    if (!this.parent) return notFound();
+    return this.parent?.getValue(name, notFound);
   }
 }

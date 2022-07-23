@@ -21,7 +21,7 @@ module.exports = grammar({
 
     pipe: $ => seq("|", $.expression),
 
-    assignment: $ => seq("=", fields("name", $.variable)),
+    assignment: $ => seq("=", field("name", $.variable)),
 
     reduce: $ => seq("$"),
 
@@ -31,7 +31,7 @@ module.exports = grammar({
 
     expression: $ => choice($.binary_expression, $.primary),
 
-    primary: $ => choice($.number, $.boolean),
+    primary: $ => choice($.number, $.boolean, $.variable),
 
     number: $ => /\d+(\.\d*)?/,
 

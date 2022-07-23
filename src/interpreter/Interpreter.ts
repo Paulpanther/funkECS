@@ -54,6 +54,8 @@ export class Interpreter {
         return this.evaluateNumber(code);
       case "boolean":
         return this.evaluateBoolean(code);
+      case "variable":
+        return this.evaluateVariable(code, scope);
       case "binary_expression":
         return this.evaluateBinary(code, scope);
     }
@@ -70,6 +72,7 @@ export class Interpreter {
           const name = pipe.childForFieldName("name").text;
           scope.setValue(name, scope.last);
           if (pipe === code.lastNamedChild) {
+            console.log(`Assigned ${name} to ${scope.last}`);
             scope.parent.setValue(name, scope.last);
           }
           break;
@@ -94,6 +97,12 @@ export class Interpreter {
 
   public evaluateBoolean(code: SyntaxNode) {
     return code.text === "true";
+  }
+
+  public evaluateVariable(code: SyntaxNode, scope: Scope) {
+    return scope.getValue(code.text, () => {
+      throw new Error(`Variable ${code.text} not found`);
+    });
   }
 
   public evaluateBinary(code: SyntaxNode, scope: Scope) {
