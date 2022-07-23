@@ -57,3 +57,29 @@ system MySystem(
         (boolean)
         (assignment
           (variable))))))
+
+
+==========
+Pipeline with a reduce
+==========
+
+system MySystem(
+  true
+  $ acc = acc + 1, 0;
+)
+
+---
+
+(source_file
+  (system_declaration
+    (name)
+    (system_body
+      (pipeline
+        (boolean)
+        (reduce
+          (variable)
+          (binary_expression
+            (variable)
+            (operator)
+            (number))
+          (number))))))

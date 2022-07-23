@@ -23,13 +23,13 @@ module.exports = grammar({
 
     assignment: $ => seq("=", field("name", $.variable)),
 
-    reduce: $ => seq("$"),
+    reduce: $ => seq("$", field("accumulator", $.variable), "=", field("reducer", $.expression), ",", field("initial", $.expression)),
 
     variable: $ => /[a-z]\w*/,
 
     name: $ => /[A-Z]\w*/,
 
-    expression: $ => choice($.binary_expression, $.primary),
+    expression: $ => choice($.binary_expression, $.primary, $.variable),
 
     primary: $ => choice($.number, $.boolean, $.variable),
 
