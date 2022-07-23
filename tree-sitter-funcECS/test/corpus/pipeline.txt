@@ -1,0 +1,19 @@
+==========
+Pipeline with an addition
+==========
+
+system MySystem(
+  1 + 1;
+)
+  
+---
+
+(source_file
+  (system_declaration
+    (name)
+    (system_body
+      (pipeline
+        (binary_expression
+          (number)
+          (operator)
+          (number))))))

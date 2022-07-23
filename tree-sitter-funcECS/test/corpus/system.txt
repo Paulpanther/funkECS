@@ -12,7 +12,7 @@ system MySystem()
     (system_body)))
 
 ==========
-System with Precondition
+System with precondition
 ==========
 
 system MySystem(true)()
@@ -26,3 +26,45 @@ system MySystem(true)()
       (pipeline
         (boolean)))
     (system_body)))
+
+==========
+System with one pipeline
+==========
+
+system MySystem(
+  true;
+)
+
+---
+
+(source_file
+  (system_declaration
+    (name)
+    (system_body
+      (pipeline
+        (boolean)))))
+
+==========
+System with multiple pipelines
+==========
+
+system MySystem(
+  true;
+
+  true;
+
+  true;
+)
+
+---
+
+(source_file
+  (system_declaration
+    (name)
+    (system_body
+      (pipeline
+        (boolean))
+      (pipeline
+        (boolean))
+      (pipeline
+        (boolean)))))

@@ -15,7 +15,9 @@ module.exports = grammar({
 
     system_body: $ => seq("(", repeat(seq($.pipeline, ";")), ")"),
 
-    pipeline: $ => $.expression,
+    pipeline: $ => choice($.expression),
+
+    // pipeline_operator: $ => 
 
     name: $ => /[A-Z]\w+/,
 

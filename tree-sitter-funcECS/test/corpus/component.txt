@@ -1,5 +1,5 @@
 ==========
-Empty Component with Brackets
+Empty component with brackets
 ==========
 
 component MyComponent()
@@ -12,7 +12,7 @@ component MyComponent()
     (component_body)))
 
 ==========
-Empty Component without Brackets
+Empty component without brackets
 ==========
 
 component MyComponent
