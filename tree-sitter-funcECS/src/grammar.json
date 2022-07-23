@@ -147,8 +147,13 @@
       ]
     },
     "pipeline": {
-      "type": "SYMBOL",
-      "name": "expression"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        }
+      ]
     },
     "name": {
       "type": "PATTERN",
