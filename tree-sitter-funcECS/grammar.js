@@ -60,9 +60,9 @@ module.exports = grammar({
 
     expression: ($) => choice($.binary_expression, $.primary),
 
-    primary: ($) => choice($.number, $.boolean, $.variable),
+    primary: ($) => choice($.number, $.boolean, $.variable, $.last_value),
 
-    last_value: ($) => "$",
+    last_value: ($) => "@",
 
     number: ($) => /\d+(\.\d*)?/,
 

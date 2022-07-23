@@ -50,6 +50,8 @@ export class Interpreter {
     switch (code.type) {
       case "pipeline":
         return this.evaluatePipeline(code, scope);
+      case "pipeline_operation":
+        return this.evaluateOperation(code, scope);
       case "number":
         return this.evaluateNumber(code);
       case "boolean":

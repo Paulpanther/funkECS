@@ -362,7 +362,7 @@
     },
     "last_value": {
       "type": "STRING",
-      "value": "$"
+      "value": "@"
     },
     "number": {
       "type": "PATTERN",

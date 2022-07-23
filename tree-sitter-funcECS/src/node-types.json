@@ -22,6 +22,10 @@
         "named": true
       },
       {
+        "type": "last_value",
+        "named": true
+      },
+      {
         "type": "number",
         "named": true
       },
@@ -426,6 +430,10 @@
   {
     "type": "int",
     "named": false
+  },
+  {
+    "type": "last_value",
+    "named": true
   },
   {
     "type": "map",

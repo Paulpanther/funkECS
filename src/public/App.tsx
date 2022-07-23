@@ -12,7 +12,7 @@ export const App: React.VFC = () => {
 system Move(
   true = test;
   print test;
-  print %;
+  print @;
 )`);
 
   const [parser, setParser] = useState<Parser | null>(null);
