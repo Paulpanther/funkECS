@@ -22,10 +22,6 @@
         "named": true
       },
       {
-        "type": "last_value",
-        "named": true
-      },
-      {
         "type": "number",
         "named": true
       },
@@ -160,11 +156,6 @@
     }
   },
   {
-    "type": "last_value",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "operator",
     "named": true,
     "fields": {}
@@ -268,10 +259,6 @@
       "types": [
         {
           "type": "component_declaration",
-          "named": true
-        },
-        {
-          "type": "expression",
           "named": true
         },
         {

@@ -1,13 +1,10 @@
 module.exports = grammar({
   name: "funkECS",
   supertypes: ($) => [$.expression, $.primary],
-  // conflicts: $ => [[$.pipeline_operation, $.primary]],
 
   rules: {
     source_file: ($) =>
-      repeat(
-        choice($.system_declaration, $.component_declaration, $.expression)
-      ),
+      repeat(choice($.system_declaration, $.component_declaration)),
 
     component_declaration: ($) =>
       seq("component", field("name", $.name), optional($.component_body)),
@@ -30,7 +27,10 @@ module.exports = grammar({
     system_body: ($) => seq("(", repeat(seq($.pipeline, ";")), ")"),
 
     pipeline: ($) =>
-      seq($.expression, repeat(choice($._pipe, $.assignment, $.reduce))),
+      seq(
+        choice($.expression, $.pipeline_operation),
+        repeat(choice($._pipe, $.assignment, $.reduce))
+      ),
 
     _pipe: ($) => seq("|", $.pipeline_operation),
 
@@ -58,7 +58,7 @@ module.exports = grammar({
 
     name: ($) => /[A-Z]\w*/,
 
-    expression: ($) => choice($.binary_expression, $.primary, $.pipeline_operation),
+    expression: ($) => choice($.binary_expression, $.primary),
 
     primary: ($) => choice($.number, $.boolean, $.variable),
 

@@ -13,10 +13,6 @@
           {
             "type": "SYMBOL",
             "name": "component_declaration"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "expression"
           }
         ]
       }
@@ -182,8 +178,17 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "expression"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "pipeline_operation"
+            }
+          ]
         },
         {
           "type": "REPEAT",
@@ -331,10 +336,6 @@
         {
           "type": "SYMBOL",
           "name": "primary"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "pipeline_operation"
         }
       ]
     },
@@ -352,6 +353,10 @@
         {
           "type": "SYMBOL",
           "name": "variable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "last_value"
         }
       ]
     },
