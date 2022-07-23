@@ -1,0 +1,17 @@
+{
+  "name": "funkecs",
+  "version": "1.0.0",
+  "description": "An entity-component-system based programming language",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Paulpanther/funkECS.git"
+  },
+  "author": "Tom, Leo, Paul",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Paulpanther/funkECS/issues"
+  },
+  "homepage": "https://github.com/Paulpanther/funkECS#readme"
+}
