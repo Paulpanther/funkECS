@@ -1,46 +1,74 @@
 module.exports = grammar({
-  name: 'funkECS',
-  supertypes: $ => [$.expression, $.primary],
+  name: "funkECS",
+  supertypes: ($) => [$.expression, $.primary],
 
   rules: {
-    source_file: $ => repeat(choice($.system_declaration, $.component_declaration, $.expression)),
+    source_file: ($) =>
+      repeat(
+        choice($.system_declaration, $.component_declaration, $.expression)
+      ),
 
-    component_declaration: $ => seq("component", field("name", $.name), optional($.component_body)),
+    component_declaration: ($) =>
+      seq("component", field("name", $.name), optional($.component_body)),
 
-    component_body: $ => seq("(", repeat($.field_declaration), ")"),
+    component_body: ($) => seq("(", repeat($.field_declaration), ")"),
 
-    field_declaration: $ => seq(field("name", $.variable), ":", field("type", $.type)),
+    field_declaration: ($) =>
+      seq(field("name", $.variable), ":", field("type", $.type)),
 
-    system_declaration: $ => seq("system", field("name", $.name), field("precondition", optional($.system_precondition)), $.system_body),
+    system_declaration: ($) =>
+      seq(
+        "system",
+        field("name", $.name),
+        field("precondition", optional($.system_precondition)),
+        $.system_body
+      ),
 
-    system_precondition: $ => seq("(", $.pipeline, ")"),
+    system_precondition: ($) => seq("(", $.pipeline, ")"),
 
-    system_body: $ => seq("(", repeat(seq($.pipeline, ";")), ")"),
+    system_body: ($) => seq("(", repeat(seq($.pipeline, ";")), ")"),
 
-    pipeline: $ => seq($.expression, repeat(choice($.pipe, $.assignment, $.reduce))),
+    pipeline: ($) =>
+      seq($.expression, repeat(choice($.pipe, $.assignment, $.reduce))),
 
-    pipe: $ => seq("|", $.expression),
+    pipe: ($) => seq("|", $.expression),
 
-    assignment: $ => seq("=", field("name", $.variable)),
+    assignment: ($) => seq("=", field("name", $.variable)),
 
-    reduce: $ => seq("$", field("accumulator", $.variable), "=", field("reducer", $.expression), ",", field("initial", $.expression)),
+    reduce: ($) =>
+      seq(
+        "$",
+        field("accumulator", $.variable),
+        "=",
+        field("reducer", $.expression),
+        ",",
+        field("initial", $.expression)
+      ),
 
-    variable: $ => /[a-z]\w*/,
+    variable: ($) => /[a-z]\w*/,
 
-    name: $ => /[A-Z]\w*/,
+    name: ($) => /[A-Z]\w*/,
 
-    expression: $ => choice($.binary_expression, $.primary, $.variable),
+    expression: ($) => choice($.binary_expression, $.primary, $.variable),
 
-    primary: $ => choice($.number, $.boolean, $.variable),
+    primary: ($) => choice($.number, $.boolean, $.variable),
 
-    number: $ => /\d+(\.\d*)?/,
+    number: ($) => /\d+(\.\d*)?/,
 
-    boolean: $ => choice("true", "false"),
+    boolean: ($) => choice("true", "false"),
 
-    binary_expression: $ => prec.left(seq(field("left", $.expression), field("operator", $.operator), field("right", $.expression))),
+    binary_expression: ($) =>
+      prec.left(
+        seq(
+          field("left", $.expression),
+          field("operator", $.operator),
+          field("right", $.expression)
+        )
+      ),
 
-    operator: $ => choice("+", "-", "*", "/", "==", "!=", "<", ">", "<=", ">=", "&&", "||"),
+    operator: ($) =>
+      choice("+", "-", "*", "/", "==", "!=", "<", ">", "<=", ">=", "&&", "||"),
 
-    type: $ => choice("int", "bool")
-  }
+    type: ($) => choice("int", "bool"),
+  },
 });
