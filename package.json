@@ -18,10 +18,13 @@
   "homepage": "https://github.com/Paulpanther/funkECS#readme",
   "devDependencies": {
     "parcel": "^2.6.2",
+    "path-browserify": "^1.0.1",
     "process": "^0.11.10"
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-simple-code-editor": "^0.11.2",
+    "web-tree-sitter": "^0.20.5"
   }
 }
