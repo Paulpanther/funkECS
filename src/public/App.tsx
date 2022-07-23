@@ -22,6 +22,7 @@ export const App: React.VFC = () => {
             [(number) (boolean)] @literal
             (name) @variable
             ["component" "system"] @declaration
+            (ERROR) @error
         `)
       );
     })();
