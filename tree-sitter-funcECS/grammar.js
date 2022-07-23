@@ -5,9 +5,13 @@ module.exports = grammar({
   rules: {
     source_file: $ => repeat(choice($.system_declaration, $.expression)),
 
-    system_declaration: $ => seq("system", /[A-Z]\w+/, "()"),
+    system_declaration: $ => seq("system", field("name", $.name), $.system_body),
 
-    // system_name: $ => /[A-Z]\w+/
+    system_body: $ => seq("(", repeat(seq($.pipeline), ";"), ")"),
+
+    pipeline: $ => "query",
+
+    name: $ => /[A-Z]\w+/,
 
     expression: $ => choice($.binary_expression, $.primary),
 
@@ -17,6 +21,6 @@ module.exports = grammar({
 
     binary_expression: $ => prec.left(seq(field("left", $.expression), field("operator", $.operator), field("right", $.expression))),
 
-    operator: $ => choice("+", "-", "*", "/", "==", "!=", "<", ">")
+    operator: $ => choice("+", "-", "*", "/", "==", "!=", "<", ">", "<=", ">=", "&&", "||")
   }
 });

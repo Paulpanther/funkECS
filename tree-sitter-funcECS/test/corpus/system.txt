@@ -7,4 +7,6 @@ system MySystem()
 ---
 
 (source_file
-  (system_declaration))
+  (system_declaration
+    (name)
+    (system_body)))

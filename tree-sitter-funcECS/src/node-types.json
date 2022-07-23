@@ -84,16 +84,60 @@
     }
   },
   {
+    "type": "system_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "pipeline",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "system_declaration",
     "named": true,
-    "fields": {}
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "system_body",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "!=",
     "named": false
   },
   {
-    "type": "()",
+    "type": "&&",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
     "named": false
   },
   {
@@ -117,6 +161,10 @@
     "named": false
   },
   {
+    "type": "<=",
+    "named": false
+  },
+  {
     "type": "==",
     "named": false
   },
@@ -125,11 +173,27 @@
     "named": false
   },
   {
+    "type": ">=",
+    "named": false
+  },
+  {
+    "type": "name",
+    "named": true
+  },
+  {
     "type": "number",
     "named": true
   },
   {
+    "type": "pipeline",
+    "named": true
+  },
+  {
     "type": "system",
+    "named": false
+  },
+  {
+    "type": "||",
     "named": false
   }
 ]
