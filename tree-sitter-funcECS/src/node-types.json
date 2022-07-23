@@ -71,7 +71,17 @@
   {
     "type": "component_body",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "field_declaration",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "component_declaration",
@@ -97,6 +107,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "field_declaration",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -209,6 +245,11 @@
     }
   },
   {
+    "type": "type",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "!=",
     "named": false
   },
@@ -241,6 +282,10 @@
     "named": false
   },
   {
+    "type": ":",
+    "named": false
+  },
+  {
     "type": ";",
     "named": false
   },
@@ -265,11 +310,19 @@
     "named": false
   },
   {
+    "type": "bool",
+    "named": false
+  },
+  {
     "type": "component",
     "named": false
   },
   {
     "type": "false",
+    "named": false
+  },
+  {
+    "type": "int",
     "named": false
   },
   {
@@ -287,6 +340,10 @@
   {
     "type": "true",
     "named": false
+  },
+  {
+    "type": "variable",
+    "named": true
   },
   {
     "type": "||",

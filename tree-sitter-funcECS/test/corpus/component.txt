@@ -23,3 +23,64 @@ component MyComponent
   (component_declaration
     (name)))
 
+==========
+Component with an int
+==========
+
+component MyComponent(
+  myInt: int
+)
+
+---
+
+(source_file
+  (component_declaration
+    (name)
+    (component_body
+      (field_declaration
+        (variable)
+        (type)))))
+
+==========
+Component with a boolean
+==========
+
+component MyComponent(
+  myBool: bool
+)
+
+---
+
+(source_file
+  (component_declaration
+    (name)
+    (component_body
+      (field_declaration
+        (variable)
+        (type)))))
+
+==========
+Component with multiple fields
+==========
+
+component MyComponent(
+  myInt: bool
+  myBool: bool
+  myFavorite: int
+)
+
+---
+
+(source_file
+  (component_declaration
+    (name)
+    (component_body
+      (field_declaration
+        (variable)
+        (type))
+      (field_declaration
+        (variable)
+        (type))
+      (field_declaration
+        (variable)
+        (type)))))

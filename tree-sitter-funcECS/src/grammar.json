@@ -58,8 +58,40 @@
           "value": "("
         },
         {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "field_declaration"
+          }
+        },
+        {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "field_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "variable"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type"
+          }
         }
       ]
     },
@@ -147,6 +179,10 @@
       ]
     },
     "pipeline": {
+      "type": "SYMBOL",
+      "name": "expression"
+    },
+    "pipeline_statement": {
       "type": "CHOICE",
       "members": [
         {
@@ -155,9 +191,13 @@
         }
       ]
     },
+    "variable": {
+      "type": "PATTERN",
+      "value": "[a-z]\\w*"
+    },
     "name": {
       "type": "PATTERN",
-      "value": "[A-Z]\\w+"
+      "value": "[A-Z]\\w*"
     },
     "expression": {
       "type": "CHOICE",
@@ -285,6 +325,19 @@
         {
           "type": "STRING",
           "value": "||"
+        }
+      ]
+    },
+    "type": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "int"
+        },
+        {
+          "type": "STRING",
+          "value": "bool"
         }
       ]
     }

@@ -7,7 +7,9 @@ module.exports = grammar({
 
     component_declaration: $ => seq("component", field("name", $.name), optional($.component_body)),
 
-    component_body: $ => seq("(", ")"),
+    component_body: $ => seq("(", repeat($.field_declaration), ")"),
+
+    field_declaration: $ => seq(field("name", $.variable), ":", field("type", $.type)),
 
     system_declaration: $ => seq("system", field("name", $.name), field("precondition", optional($.system_precondition)), $.system_body),
 
@@ -15,11 +17,13 @@ module.exports = grammar({
 
     system_body: $ => seq("(", repeat(seq($.pipeline, ";")), ")"),
 
-    pipeline: $ => choice($.expression),
+    pipeline: $ => $.expression,
 
-    // pipeline_operator: $ => 
+    pipeline_statement: $ => choice($.expression),
 
-    name: $ => /[A-Z]\w+/,
+    variable: $ => /[a-z]\w*/,
+
+    name: $ => /[A-Z]\w*/,
 
     expression: $ => choice($.binary_expression, $.primary),
 
@@ -31,6 +35,8 @@ module.exports = grammar({
 
     binary_expression: $ => prec.left(seq(field("left", $.expression), field("operator", $.operator), field("right", $.expression))),
 
-    operator: $ => choice("+", "-", "*", "/", "==", "!=", "<", ">", "<=", ">=", "&&", "||")
+    operator: $ => choice("+", "-", "*", "/", "==", "!=", "<", ">", "<=", ">=", "&&", "||"),
+
+    type: $ => choice("int", "bool")
   }
 });
