@@ -45,7 +45,7 @@ module.exports = grammar({
     pipeline_operation: ($) =>
       seq(
         field("operator", alias($.variable, $.pipeline_operator)),
-        $.expression
+        $.expression_list
       ),
 
     map: ($) => seq("map", $.expression),
@@ -68,9 +68,9 @@ module.exports = grammar({
 
     expression: ($) => choice($.component_creation, $.binary_expression, $.primary),
 
-    component_creation: ($) => seq(field("name", $.name), "(", commaSep($.component_argument), ")"),
+    expression_list: $ => commaSep1($.expression),
 
-    component_argument: ($) => $.expression,
+    component_creation: $ => seq($.name, "(", commaSep($.expression), ")"),
 
     primary: ($) => choice($.number, $.boolean, $.variable, $.last_value),
 

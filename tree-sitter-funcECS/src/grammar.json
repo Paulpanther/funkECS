@@ -243,7 +243,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "expression"
+          "name": "expression_list"
         }
       ]
     },
@@ -331,6 +331,10 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "component_creation"
+        },
+        {
+          "type": "SYMBOL",
           "name": "binary_expression"
         },
         {
@@ -339,16 +343,37 @@
         }
       ]
     },
+    "expression_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "expression"
+              }
+            ]
+          }
+        }
+      ]
+    },
     "component_creation": {
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "name"
-          }
+          "type": "SYMBOL",
+          "name": "name"
         },
         {
           "type": "STRING",
@@ -362,7 +387,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "component_argument"
+                  "name": "expression"
                 },
                 {
                   "type": "REPEAT",
@@ -375,7 +400,7 @@
                       },
                       {
                         "type": "SYMBOL",
-                        "name": "component_argument"
+                        "name": "expression"
                       }
                     ]
                   }
@@ -392,10 +417,6 @@
           "value": ")"
         }
       ]
-    },
-    "component_argument": {
-      "type": "SYMBOL",
-      "name": "expression"
     },
     "primary": {
       "type": "CHOICE",

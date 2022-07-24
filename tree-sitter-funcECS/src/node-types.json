@@ -8,6 +8,10 @@
         "named": true
       },
       {
+        "type": "component_creation",
+        "named": true
+      },
+      {
         "type": "primary",
         "named": true
       }
@@ -93,21 +97,6 @@
     "fields": {}
   },
   {
-    "type": "component_argument",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "component_body",
     "named": true,
     "fields": {},
@@ -117,6 +106,25 @@
       "types": [
         {
           "type": "field_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "component_creation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "name",
           "named": true
         }
       ]
@@ -143,6 +151,21 @@
       "types": [
         {
           "type": "component_body",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expression_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
           "named": true
         }
       ]
@@ -226,7 +249,7 @@
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "expression_list",
           "named": true
         }
       ]

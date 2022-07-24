@@ -90,7 +90,7 @@ Creating a component instance
 ==========
 
 system MySystem(
-    Pos();
+    spawn MyPos();
 )
 
 ---
@@ -100,7 +100,8 @@ system MySystem(
     (name)
     (system_body
       (pipeline
-        (component_creation
-          (name)
-            )))))
-
+        (pipeline_operation
+          (pipeline_operator)
+          (expression_list
+            (component_creation
+              (name))))))))

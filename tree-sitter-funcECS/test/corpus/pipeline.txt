@@ -37,7 +37,8 @@ system MySystem(
         (boolean)
         (pipeline_operation
           (pipeline_operator)
-          (boolean))))))
+          (expression_list
+            (boolean)))))))
 
 ==========
 Pipeline with an assignment
@@ -84,3 +85,4 @@ system MySystem(
             (operator)
             (number))
           (number))))))
+
