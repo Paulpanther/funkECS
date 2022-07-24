@@ -66,7 +66,7 @@ module.exports = grammar({
 
     name: ($) => /[A-Z]\w*/,
 
-    expression: ($) => choice($.binary_expression, $.primary),
+    expression: ($) => choice($.component_creation, $.binary_expression, $.primary),
 
     component_creation: ($) => seq(field("name", $.name), "(", commaSep($.component_argument), ")"),
 

@@ -84,3 +84,23 @@ component MyComponent(
       (field_declaration
         (variable)
         (type)))))
+
+==========
+Creating a component instance
+==========
+
+system MySystem(
+    Pos();
+)
+
+---
+
+(source_file
+  (system_declaration
+    (name)
+    (system_body
+      (pipeline
+        (component_creation
+          (name)
+            )))))
+
