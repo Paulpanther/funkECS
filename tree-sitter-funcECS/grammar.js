@@ -1,3 +1,11 @@
+function commaSep1(rule) {
+  return seq(rule, repeat(seq(",", rule)));
+}
+
+function commaSep(rule) {
+  return optional(commaSep1(rule));
+}
+
 module.exports = grammar({
   name: "funkECS",
   supertypes: ($) => [$.expression, $.primary],
@@ -59,6 +67,10 @@ module.exports = grammar({
     name: ($) => /[A-Z]\w*/,
 
     expression: ($) => choice($.binary_expression, $.primary),
+
+    component_creation: ($) => seq(field("name", $.name), "(", commaSep($.component_argument), ")"),
+
+    component_argument: ($) => $.expression,
 
     primary: ($) => choice($.number, $.boolean, $.variable, $.last_value),
 
