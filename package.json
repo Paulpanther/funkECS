@@ -18,7 +18,6 @@
   "homepage": "https://github.com/Paulpanther/funkECS#readme",
   "devDependencies": {
     "parcel": "^2.6.2",
-    "parcel-reporter-copy-file-v2": "^1.0.1",
     "path-browserify": "^1.0.1",
     "process": "^0.11.10"
   },
@@ -27,9 +26,5 @@
     "react-dom": "^18.2.0",
     "react-simple-code-editor": "^0.11.2",
     "web-tree-sitter": "^0.20.5"
-  },
-  "copyStaticFiles": [
-    "node_modules/web-tree-sitter/tree-sitter.wasm",
-    "tree-sitter-funcECS/tree-sitter-funkECS.wasm"
-  ]
+  }
 }

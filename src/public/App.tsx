@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Editor from "react-simple-code-editor";
 import Parser, { Language, Query, Tree } from "web-tree-sitter";
 import { Interpreter } from "../interpreter/Interpreter";
+import funkECS from "url:~/tree-sitter-funcECS/tree-sitter-funkECS.wasm";
+import treeSitterWasm from "url:~/node_modules/web-tree-sitter/tree-sitter.wasm";
 
 export const App: React.VFC = () => {
   const [code, setCode] = React.useState(`component Pos(
@@ -22,9 +24,11 @@ system Move(
 
   useEffect(() => {
     (async () => {
-      await Parser.init();
+      await Parser.init({
+        locateFile: (file) => treeSitterWasm
+      });
       const parser = new Parser();
-      const language = await Parser.Language.load("/tree-sitter-funkECS.wasm");
+      const language = await Parser.Language.load(funkECS);
       parser.setLanguage(language);
       setParser(parser);
       setLanguage(language);
