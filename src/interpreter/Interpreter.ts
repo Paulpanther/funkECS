@@ -66,7 +66,7 @@ export class Interpreter {
     throw new Error(`No case for expression type ${code.type}`);
   }
 
-  public evaluatePipeline(code: SyntaxNode, parentScope: Scope) {
+  public evaluatePipeline(code: SyntaxNode, parentScope: Scope): any {
     const scope = new Scope(parentScope);
     scope.last = this.evaluateExpression(code.firstNamedChild, scope);
 

@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["ES2020", "dom"],
+    "target": "ES5",
     "esModuleInterop": true,
     "jsx": "react",
   },

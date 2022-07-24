@@ -1,6 +1,6 @@
 export class Scope {
   private bindings = new Map<string, any>();
-  public last: any;
+  private _last: any;
 
   constructor(public parent: Scope | null) {}
 
@@ -12,5 +12,13 @@ export class Scope {
     if (this.bindings.has(name)) return this.bindings.get(name);
     if (!this.parent) return notFound();
     return this.parent?.getValue(name, notFound);
+  }
+
+  public set last(v: any) {
+    this._last = v;
+  }
+
+  public get last(): any {
+    return this._last ?? this.parent?.last;
   }
 }
